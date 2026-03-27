@@ -18,9 +18,9 @@ function App() {
 
 
   //추가 → [...todos, newTodo]
-  //삭제 → filter
+  //삭제 → filter(true인 것만 남기는 함수)
   //수정 → map
-  
+
   const addTodo = () => {
     // 공백 제거헀는데 아무것도 없으면(빈문자열: !) 함수 종료
     if(!input.trim) return; 
@@ -48,6 +48,22 @@ function App() {
     setTodos(todos.filter((todo) => todo.id !== id));
 
   };
+
+  //완료 토글
+  const toggleTodo = (id: number) => {
+    // map : 특정 요소만 변경
+    // 객체도 새로 만들어야 함(불변성)
+    //id가 같은 Todo 하나만 찾아서 completed 값을 반대로 바꾸는 코드”
+    setTodos (
+      todos.map((todo) => 
+        todo.id === id
+         ? { ...todo, completed: !todo.completed} //객체 복사후 값 변경
+         : todo
+      )
+    )
+
+
+  }
 
   return <h1>리액트 시작</h1>
 }
