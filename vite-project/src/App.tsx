@@ -3,6 +3,10 @@ import { useState } from 'react'
 import './App.css'
 import type { Todo } from './types/todo';
 
+import TodoInput from './components/TodoInput';
+import TodoList from './components/TodoList';
+
+
 function App() {
   // todos: 화면에 보여줄 상태 데이터
   // useState 사용 이유: 상태가 바뀌면 React가 자동으로 리렌더링 해줌=> 상태변환을 위해
@@ -23,7 +27,7 @@ function App() {
 
   const addTodo = () => {
     // 공백 제거헀는데 아무것도 없으면(빈문자열: !) 함수 종료
-    if(!input.trim) return; 
+    if(!input.trim()) return; 
 
     // 각 Todo를 구분하기 위해 고유 id필요
     const newTodo: Todo = {
@@ -65,7 +69,15 @@ function App() {
 
   }
 
-  return <h1>리액트 시작</h1>
+  return (
+    <div className='container'>
+      <h1>Todo App</h1>
+        {/* props 전달  ex) 왼쪽 input = 자식컴포넌트 prop이름, 오른쪽 {input} App.tsx에 있는 실제 변수 */}
+      <TodoInput input={input} setInput={setInput} addTodo={addTodo}/>
+      <TodoList todos={todos} deleteTodo={deleteTodo} toggleTodo={toggleTodo}/>
+      
+    </div>
+  )
 }
 
 export default App
